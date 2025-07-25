@@ -57,12 +57,11 @@ export const getCompanyId = async (req, res) => {
     const company = await Company.findById(CompanyId);
     if (!company) {
       return res.status(404).json({
-       
         success: false,
       });
     }
     return res.status(200).json({
-      message:  company,
+       company,
       success: true,
     });
   } catch (error) {

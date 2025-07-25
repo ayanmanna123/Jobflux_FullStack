@@ -1,5 +1,7 @@
 import { application } from "express";
 import mongoose from "mongoose";
+import Company from "./Company.model.js"; // adjust path as needed
+
 const jobSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -10,8 +12,9 @@ const jobSchema = new mongoose.Schema({
     required: true,
   },
   requirements: {
-    type: String,
+    type: [String],
   },
+
   salary: {
     type: Number,
     required: true,
@@ -20,8 +23,13 @@ const jobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
   jobType: {
     type: String,
+    required: true,
+  },
+  experiencelavel: {
+    type: Number,
     required: true,
   },
   position: {
@@ -44,7 +52,6 @@ const jobSchema = new mongoose.Schema({
       ref: "Application",
     },
   ],
-
 });
 const Job = mongoose.model("Job", jobSchema);
 export default Job;
