@@ -21,13 +21,18 @@ app.use(cookieParser());
 
 // ✅ Updated CORS config
 const corsOptions = {
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost:5000"],
   Credentials:true
 };
 app.use(cors(corsOptions));
 
 // Routes
-app.use("/api/v1/user", router)
+app.use("/api/v1/user", router);
+
+// "http://localhost:5000/api/v1/user/register"
+// "http://localhost:5000/api/v1/user/login"
+// "http://localhost:5000/api/v1/user/profile/updateProfile"
+
 app.listen(port, () => {
   console.log(`Website is running at http://localhost:${port}`);
 });
