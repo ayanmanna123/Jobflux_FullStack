@@ -32,6 +32,7 @@ app.use("/api/v1/user", router);
 // "http://localhost:5000/api/v1/user/register"
 // "http://localhost:5000/api/v1/user/login"
 // "http://localhost:5000/api/v1/user/profile/updateProfile"
+// http://localhost:5000/api/v1/user/logout
 
 app.listen(port, () => {
   console.log(`Website is running at http://localhost:${port}`);
