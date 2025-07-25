@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../model/user.model.js";
- // #1 creat user 
+// #1 creat user
 export const register = async (req, res) => {
   try {
     const { fullname, email, phonenumber, password, role } = req.body;
@@ -31,7 +31,7 @@ export const register = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.error("REGISTER ERROR:", error); 
+    console.error("REGISTER ERROR:", error);
     return res.status(500).json({
       message: "Internal server error 1",
       success: false,
@@ -101,7 +101,7 @@ export const login = async (req, res) => {
     });
   }
 };
-// #3 this is our logout route 
+// #3 this is our logout route
 export const logout = async (req, res) => {
   try {
     return res.status(200).cookie("token", "", { maxAge: 0 }).json({
@@ -115,42 +115,41 @@ export const logout = async (req, res) => {
     });
   }
 };
-// #4 this is our uplode profile route 
+// #4 this is our uplode profile route
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phonenumber, bio, skills } = req.body;
     const file = req.file;
     let skillsArray;
-    if(skills){
-       skillsArray = skills.split(",");
+    if (skills) {
+      skillsArray = skills.split(",");
     }
-   
+
     const userId = req.id;
-   let user = await User.findById(userId);
+    let user = await User.findById(userId);
 
     if (!user) {
       return res.status(400).json({
         message: "at first login to update your profile ",
         success: false,
       });
-    } 
-     if(fullname) {
-      user.fullname = fullname
-     }
-      if(email) {
-      user.email = email
-     }
-      if(phonenumber) {
-      user.phonenumber = phonenumber
-     }
-      if(bio) {
-      user.profile.bio = bio
-     }
-      if(skills) {
-      user.profile.skills = skillsArray
-     }
-      
-       
+    }
+    if (fullname) {
+      user.fullname = fullname;
+    }
+    if (email) {
+      user.email = email;
+    }
+    if (phonenumber) {
+      user.phonenumber = phonenumber;
+    }
+    if (bio) {
+      user.profile.bio = bio;
+    }
+    if (skills) {
+      user.profile.skills = skillsArray;
+    }
+
     await user.save();
     return res.json({
       message: "Profile updated successfully",
@@ -165,7 +164,7 @@ export const updateProfile = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("update ERROR:", error); 
+    console.error("update ERROR:", error);
     return res.status(500).json({
       message: "Internal server error",
       success: false,

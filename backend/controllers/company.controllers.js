@@ -61,7 +61,7 @@ export const getCompanyId = async (req, res) => {
       });
     }
     return res.status(200).json({
-       company,
+      company,
       success: true,
     });
   } catch (error) {

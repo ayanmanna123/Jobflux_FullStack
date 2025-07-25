@@ -31,21 +31,20 @@ export const jobPortal = async (req, res) => {
         success: false,
       });
     }
-        const company = await Company.findById(companyId);
+    const company = await Company.findById(companyId);
     if (!company) {
       return res.status(400).json({
         message: "Invalid company ID",
         success: false,
       });
     }
-     if (!companyId || !mongoose.Types.ObjectId.isValid(companyId)) {
+    if (!companyId || !mongoose.Types.ObjectId.isValid(companyId)) {
       return res.status(400).json({
         message: "Invalid company ID format",
         success: false,
       });
     }
-    
-     
+
     const job = await Job.create({
       title,
       description,
@@ -67,49 +66,50 @@ export const jobPortal = async (req, res) => {
     console.log(error);
   }
 };
- export const getAlljobs = async (req, res) => {
-    try {
-        const keyword = req.query.keyword || "";
-        const query = {
-            $or: [
-                { title: { $regex: keyword, $options: "i" } },
-                { description: { $regex: keyword, $options: "i" } },
-            ]
-        };
-        const jobs = await Job.find(query).populate({
-            path: "company"
-        }).sort({ createdAt: -1 });
-        if (!jobs) {
-            return res.status(404).json({
-                message: "Jobs not found.",
-                success: false
-            })
-        };
-        return res.status(200).json({
-            jobs,
-            success: true
-        })
-    } catch (error) {
-        console.log(error);
+export const getAlljobs = async (req, res) => {
+  try {
+    const keyword = req.query.keyword || "";
+    const query = {
+      $or: [
+        { title: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
+      ],
+    };
+    const jobs = await Job.find(query)
+      .populate({
+        path: "company",
+      })
+      .sort({ createdAt: -1 });
+    if (!jobs) {
+      return res.status(404).json({
+        message: "Jobs not found.",
+        success: false,
+      });
     }
-}
+    return res.status(200).json({
+      jobs,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const getjobById = async (req, res) => {
-    try {
-         console.log("Request params:", req.params);
-        const jobId = req.params.id;
-        console.log(jobId)
-        const job = await Job.findById(jobId);
-        if (!job) {
-            return res.status(404).json({
-                message: "Jobs not found.",
-                success: false
-            })
-        };
-        return res.status(200).json({ job, success: true });
-    } catch (error) {
-        console.log(error);
+  try {
+    const jobId = req.params.id;
+
+    const job = await Job.findById(jobId);
+    if (!job) {
+      return res.status(404).json({
+        message: "Jobs not found.",
+        success: false,
+      });
     }
-}
+    return res.status(200).json({ job, success: true });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getadminjob = async (req, res) => {
   try {
