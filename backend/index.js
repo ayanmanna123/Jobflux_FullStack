@@ -2,6 +2,7 @@ import connectToMongo from "./utils/db.js";
 import cookieParser from "cookie-parser";
 import express, { json, Router } from "express";
 import router from "./routes/user.route.js"
+import companyroute from "./routes/company.route.js"
 import cors from "cors";
 import dotenv from "dotenv"
 dotenv.config();
@@ -19,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// ✅ Updated CORS config
+
 const corsOptions = {
   origin: ["http://localhost:5000"],
   Credentials:true
@@ -28,11 +29,19 @@ app.use(cors(corsOptions));
 
 // Routes
 app.use("/api/v1/user", router);
+app.use("/api/v2/company",companyroute );
 
 // "http://localhost:5000/api/v1/user/register"
 // "http://localhost:5000/api/v1/user/login"
 // "http://localhost:5000/api/v1/user/profile/updateProfile"
-// http://localhost:5000/api/v1/user/logout
+// "http://localhost:5000/api/v1/user/logout"
+
+// company route 
+
+// "http://localhost:5000/api/v2/company/regestercompany"
+// "http://localhost:5000/api/v2/company/getcompanis"
+// "http://localhost:5000/api/v2/company/get/:id"
+// "http://localhost:5000/api/v2/company/update/:id"
 
 app.listen(port, () => {
   console.log(`Website is running at http://localhost:${port}`);
