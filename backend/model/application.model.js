@@ -7,15 +7,15 @@ const applicationSchema = new mongoose.Schema(
       ref: "Job",
       required: true,
     },
-    applicabnts: {
+    applicant: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
     status: {
       type: String,
-      enmu: ["pending", "accepted", "rejected"],
-      defult: "pending",
+      enum: ["pending", "accepted", "rejected"],
+      default: "pending",
     },
   },
   { timestamps: true }

@@ -4,6 +4,7 @@ import express, { json, Router } from "express";
 import router from "./routes/user.route.js";
 import companyroute from "./routes/company.route.js";
 import jobroute from "./routes/job.route.js";
+import applicationroute from "./routes/application.route.js"
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
@@ -30,7 +31,7 @@ app.use(cors(corsOptions));
 app.use("/api/v1/user", router);
 app.use("/api/v2/company", companyroute);
 app.use("/api/v3/job", jobroute);
-
+app.use("/api/v4/application", applicationroute)
 // "http://localhost:5000/api/v1/user/register"
 // "http://localhost:5000/api/v1/user/login"
 // "http://localhost:5000/api/v1/user/profile/updateProfile"
