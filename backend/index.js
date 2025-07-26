@@ -21,11 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: ["http://localhost:5000"],
-  Credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
 // Routes
 app.use("/api/v1/user", router);

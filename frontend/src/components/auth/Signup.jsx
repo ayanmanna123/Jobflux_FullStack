@@ -3,34 +3,65 @@ import Navbar from "../shared/Navbar.jsx";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { RadioGroup } from "@/components/ui/radio-group";
 import { Button } from "../ui/button.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast, Toaster } from "sonner";
+import axios from "axios";
 const signup = () => {
   const [input, setinput] = useState({
     fullname: "",
     email: "",
-    phoneNumber: "",
+    phonenumber: "",
     password: "",
     role: "",
     file: "",
   });
+  const navigate = useNavigate();
   const changeEventHandaler = (e) => {
     setinput({ ...input, [e.target.name]: e.target.value });
   };
-  const changeEileHandler = (e) => {
+  const changeFileHandler = (e) => {
     setinput({ ...input, file: e.target.files?.[0] });
   };
-  const sunmitHandler = async (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(input);
+    const fromdata = new FormData();
+    fromdata.append("fullname", input.fullname);
+    fromdata.append("email", input.email);
+    fromdata.append("phonenumber", input.phonenumber);
+    fromdata.append("password", input.password);
+    fromdata.append("role", input.role);
+    if (input.file) {
+      fromdata.append("file", input.file);
+    }
+    try {
+      const res = await axios.post(
+        `http://localhost:5000/api/v1/user/register`,
+        fromdata,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
+      if(res.data.success){
+        navigate("/login")
+        toast.success(res.data.message)
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Signup failed");
+
+    }
   };
   return (
     <div>
       <Navbar />
       <div className="flex items-center justify-center max-w-3xl mx-auto gap-2">
         <form
-          onSubmit={sunmitHandler}
+          onSubmit={submitHandler}
           className=" w-1/2 border border-gray-200 rounded-md p-4 my-10"
         >
           <h1 className="font-bold text-xl mb-5">signup</h1>
@@ -58,8 +89,8 @@ const signup = () => {
             <Label>Phone Number</Label>
             <Input
               type="text"
-              value={input.phoneNumber}
-              name="phoneNumber"
+              value={input.phonenumber}
+              name="phonenumber"
               onChange={changeEventHandaler}
               placeholder="+91 1234567890"
             />
@@ -69,7 +100,7 @@ const signup = () => {
             <Input
               type="password"
               value={input.password}
-              name="passowd"
+              name="password"
               onChange={changeEventHandaler}
               placeholder="123@example"
             />
@@ -105,11 +136,11 @@ const signup = () => {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <lable>Profile</lable>
+              <Label>Profile</Label>
               <input
                 accept="image/*"
                 type="file"
-                onChange={changeEileHandler}
+                onChange={changeFileHandler}
                 className="cursor-pointer"
               />
             </div>

@@ -5,12 +5,21 @@ import User from "../model/user.model.js";
 export const register = async (req, res) => {
   try {
     const { fullname, email, phonenumber, password, role } = req.body;
+
     if (!fullname || !email || !password || !phonenumber || !role) {
       return res.status(400).json({
         message: "Sumthing is missing ",
         success: false,
       });
     }
+    const existingPhone = await User.findOne({ phonenumber });
+    if (existingPhone) {
+      return res.status(400).json({
+        message: "Phone number is already registered",
+        success: false,
+      });
+    }
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
