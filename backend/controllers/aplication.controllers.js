@@ -1,5 +1,5 @@
 import Job from "../model/job.model.js";
-import Application from "../model/application.model.js"
+import Application from "../model/application.model.js";
 export const applyjob = async (req, res) => {
   try {
     const userId = req.id;
@@ -50,7 +50,7 @@ export const applyjob = async (req, res) => {
 export const getapplidejob = async (req, res) => {
   try {
     const userId = req.id;
-    const application = await  Application.find({ applicant: userId })
+    const application = await Application.find({ applicant: userId })
       .sort({ createdAt: -1 })
       .populate({
         path: "job",
