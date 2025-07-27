@@ -8,6 +8,10 @@ import { Button } from "../ui/button.jsx";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoding } from "@/Redux/authSilce.js";
+import { store } from "@/Redux/store.js";
+import { Loader2, LoaderIcon } from "lucide-react";
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -17,7 +21,9 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+  const { loding } = useSelector((store) => store.auth); // Replace 'auth' with your actual slice name
 
+  const dispatch = useDispatch();
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -33,6 +39,7 @@ const Login = () => {
     }
 
     try {
+      dispatch(setLoding(true));
       const res = await axios.post(
         `http://localhost:5000/api/v1/user/login`,
         input,
@@ -46,11 +53,13 @@ const Login = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
-        navigate("/");
+        navigate("/Home");
       }
     } catch (error) {
       console.error("Login Error:", error);
       toast.error(error.response?.data?.message || "Login failed");
+    } finally {
+      dispatch(setLoding(false));
     }
   };
 
@@ -111,10 +120,16 @@ const Login = () => {
               </label>
             </div>
           </div>
-
-          <Button type="submit" className="w-full my-4">
-            Login
-          </Button>
+          {loding ? (
+            <Button>
+              {" "}
+              <Loader2 className={"w-full my-4 animate-spin"} />{" "}
+            </Button>
+          ) : (
+            <Button type="submit" className="w-full my-4">
+              Login
+            </Button>
+          )}
 
           <span className="text-sm">
             Don't have an account?{" "}

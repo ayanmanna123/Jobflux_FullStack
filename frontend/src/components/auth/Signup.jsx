@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Navbar from "../shared/Navbar.jsx";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setLoding } from "@/Redux/authSilce.js";
 import { RadioGroup } from "@/components/ui/radio-group";
 import { Button } from "../ui/button.jsx";
+import { Loader2, LoaderIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import axios from "axios";
@@ -24,6 +26,9 @@ const signup = () => {
   const changeFileHandler = (e) => {
     setinput({ ...input, file: e.target.files?.[0] });
   };
+  const { loding } = useSelector((store) => store.auth); // Replace 'auth' with your actual slice name
+
+  const dispatch = useDispatch();
   const submitHandler = async (e) => {
     e.preventDefault();
     const fromdata = new FormData();
@@ -36,6 +41,7 @@ const signup = () => {
       fromdata.append("file", input.file);
     }
     try {
+       dispatch(setLoding(true));
       const res = await axios.post(
         `http://localhost:5000/api/v1/user/register`,
         fromdata,
@@ -46,14 +52,15 @@ const signup = () => {
           withCredentials: true,
         }
       );
-      if(res.data.success){
-        navigate("/login")
-        toast.success(res.data.message)
+      if (res.data.success) {
+        navigate("/login");
+        toast.success(res.data.message);
       }
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Signup failed");
-
+    }finally{
+      dispatch(setLoding(false));
     }
   };
   return (
@@ -145,9 +152,16 @@ const signup = () => {
               />
             </div>
             <div>
-              <Button type="submit" className={" w-full my-4"}>
-                Signup
-              </Button>
+              {loding ? (
+                <Button>
+                  {" "}
+                  <Loader2 className={"w-full my-4 animate-spin"} />{" "}
+                </Button>
+              ) : (
+                <Button type="submit" className="w-full my-4">
+                  Login
+                </Button>
+              )}
               <span className="text-sm">
                 Already have an account?
                 <Link to="/login" className="text-blue-600">
