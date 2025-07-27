@@ -9,7 +9,8 @@ import {
 } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
-import Home from "./components/Home";
+import Home from "./components/Home.jsx";
+import Job from "./components/Job.jsx";
 
 const appRouter = createBrowserRouter([
    {
@@ -23,6 +24,10 @@ const appRouter = createBrowserRouter([
   {
     path:  "/signup",
     element: <Signup />
+  },
+  {
+    path:  "/jobs",
+    element: <Job />
   },
 ]);
 function App() {

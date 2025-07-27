@@ -1,6 +1,7 @@
 import React from "react";
 import { LogOut } from "lucide-react";
 import { User } from "lucide-react";
+import ThemeToggle from "../ThemeToggle";
 import {
   Popover,
   PopoverContent,
@@ -15,7 +16,7 @@ function Navbar() {
     <div className="bg-white">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
         <div>
-          <h1 className="test-2xl font-bold">
+          <h1 className="text-2xl font-bold">
             Job<span className="text-[#F83002]">Flux</span>
           </h1>
         </div>
@@ -32,9 +33,10 @@ function Navbar() {
               </Link>
               <Link to="/signup">
                 <Button className="bg-[#6A38C2] hover:bg-[#5b30a6]">
-                  Singup
+                 Sign up
                 </Button>
               </Link>
+              <ThemeToggle />
             </div>
           ) : (
             <Popover>
