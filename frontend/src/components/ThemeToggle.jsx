@@ -44,7 +44,7 @@ const ThemeToggle = () => {
         <div className="absolute right-0 mt-2 w-32 origin-top-right bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 divide-y divide-gray-100 rounded-md shadow-lg z-50">
           <button
             onClick={() => { setTheme("light"); setOpen(false); }}
-            className={cn("w-full flex items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700", {
+            className={cn("w-full flex items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-200", {
               "bg-purple-600 text-white": theme === "light"
             })}
           >
@@ -52,20 +52,13 @@ const ThemeToggle = () => {
           </button>
           <button
             onClick={() => { setTheme("dark"); setOpen(false); }}
-            className={cn("w-full flex items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700", {
+            className={cn("w-full flex items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-200", {
               "bg-purple-600 text-white": theme === "dark"
             })}
           >
             <Moon className="w-4 h-4 mr-2" /> Dark
           </button>
-          <button
-            onClick={() => { setTheme("auto"); setOpen(false); }}
-            className={cn("w-full flex items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700", {
-              "bg-purple-600 text-white": theme === "auto"
-            })}
-          >
-            <Monitor className="w-4 h-4 mr-2" /> Auto
-          </button>
+           
         </div>
       )}
     </div>

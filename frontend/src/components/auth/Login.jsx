@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoding } from "@/Redux/authSilce.js";
+import { setLoding , setuser } from "@/Redux/authSilce.js";
 import { store } from "@/Redux/store.js";
 import { Loader2, LoaderIcon } from "lucide-react";
 
@@ -52,6 +52,7 @@ const Login = () => {
       );
 
       if (res.data.success) {
+        dispatch(setuser(res.data.user));
         toast.success(res.data.message);
         navigate("/Home");
       }
