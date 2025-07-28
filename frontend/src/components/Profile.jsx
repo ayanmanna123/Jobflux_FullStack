@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./shared/Navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
@@ -6,11 +6,13 @@ import { Contact, Mail, Pen } from "lucide-react";
 import { Badge } from "@/components/ui/badge"; // ✅ Correct (adjust path as per your structure)
 import { Label } from "./ui/label";
 import Appliedjjob from "./Appliedjjob";
+import UPdtaeprofiledilog from "./UPdtaeprofiledilog";
 
 const skilles = ["React", "Node.js", "Tailwind", "MongoDB"];
 
 const Profile = () => {
   const ishaveresume = true;
+  let [open, setopen] = useState(false);
   return (
     <div>
       <Navbar />
@@ -31,7 +33,11 @@ const Profile = () => {
               <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
             </div>
           </div>
-          <Button className={"text-right"} variant={"outline"}>
+          <Button
+            onClick={() => setopen(true)}
+            className={"text-right"}
+            variant={"outline"}
+          >
             <Pen />
           </Button>
         </div>
@@ -73,9 +79,10 @@ const Profile = () => {
         </div>
       </div>
       <div className="max-w-4xl mx-auto bg-white rounded-2xl ">
-        <h1 className={'font-bold'}>applied jobs</h1>
+        <h1 className={"font-bold"}>applied jobs</h1>
         <Appliedjjob />
       </div>
+      <UPdtaeprofiledilog open={open} setopen={setopen} />
     </div>
   );
 };
