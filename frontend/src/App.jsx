@@ -12,6 +12,8 @@ import Signup from "./components/auth/Signup";
 import Home from "./components/Home.jsx";
 import Job from "./components/Job.jsx";
 import Brouse from "./components/Brouse.jsx";
+import Profile from "./components/profile.jsx";
+import Jobdescription from "./components/Jobdescription.jsx";
 
 const appRouter = createBrowserRouter([
    {
@@ -37,6 +39,14 @@ const appRouter = createBrowserRouter([
   {
     path:  "/browse",
     element: <Brouse />
+  },
+  {
+    path:  "/profile",
+    element: <Profile />
+  },
+   {
+    path:  "/discription/:id",
+    element: <Jobdescription />
   },
 ]);
 function App() {
