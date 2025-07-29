@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       bio: { type: String },
       skills: [{ type: String }],
       resume: { type: String }, // URL or path to the resume file
-      reasumeOriginalName: { type: String }, // Original name of the resume file
+      resumeOriginalName: { type: String }, // Original name of the resume file
       company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
       profilephoto: {
         type: String,

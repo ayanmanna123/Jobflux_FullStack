@@ -20,7 +20,7 @@ const UPdtaeprofiledilog = ({ open, setopen }) => {
   const [loding, setloding] = useState(false);
 
   const { user } = useSelector((store) => store.auth);
-  console.log(user);
+ 
   const [input, setInput] = useState({
     fullname: user?.fullname || "",
     email: user?.email || "",
@@ -38,6 +38,7 @@ const UPdtaeprofiledilog = ({ open, setopen }) => {
   };
   const submitHandelar = async (e) => {
     e.preventDefault();
+    console.log(input)
     setloding(true);
     const fromdata = new FormData();
     fromdata.append("fullname", input.fullname);
@@ -60,16 +61,14 @@ const UPdtaeprofiledilog = ({ open, setopen }) => {
           withCredentials: true,
         }
       );
-      for (let [key, value] of fromdata.entries()) {
-        console.log(`${key}:`, value);
-      }
+       
 
       if (res.data.success) {
-        dispatch(setuser(res.data.user)); // ✅ Fix action name
+        dispatch(setuser(res.data.user));  
         toast.success(res.data.message);
       }
     } catch (error) {
-      console.error("update ERROR:", error.message);
+   
       toast.error(error.response?.data?.message || "Update failed");
     } finally {
       setloding(false);

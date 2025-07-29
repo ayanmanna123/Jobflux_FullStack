@@ -3,16 +3,19 @@ import Navbar from "./shared/Navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 import { Contact, Mail, Pen } from "lucide-react";
-import { Badge } from "@/components/ui/badge"; // ✅ Correct (adjust path as per your structure)
+import { Badge } from "@/components/ui/badge";
 import { Label } from "./ui/label";
 import Appliedjjob from "./Appliedjjob";
 import UPdtaeprofiledilog from "./UPdtaeprofiledilog";
+import { useSelector } from "react-redux";
+import { store } from "@/Redux/store";
 
-const skilles = ["React", "Node.js", "Tailwind", "MongoDB"];
+// const skilles = ["React", "Node.js", "Tailwind", "MongoDB"];
 
 const Profile = () => {
   const ishaveresume = true;
   let [open, setopen] = useState(false);
+  const { user } = useSelector((store) => store.auth);
   return (
     <div>
       <Navbar />
@@ -29,8 +32,8 @@ const Profile = () => {
               <AvatarFallback>U</AvatarFallback>
             </Avatar>
             <div>
-              <h1 className="font-medium text-xl">Full name</h1>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+              <h1 className="font-medium text-xl">{user?.fullname}</h1>
+              <p>{user?.profile?.bio}</p>
             </div>
           </div>
           <Button
@@ -45,32 +48,34 @@ const Profile = () => {
           <div className="gap-3 pl-5">
             <div className="flex items-center gap-3">
               <Mail />
-              <span>ayan@gmail.com</span>
+              <span>{user?.email}</span>
             </div>
             <div className="flex gap-3 items-center">
               <Contact />
-              <span>9907072795</span>
+              <span>{user?.phonenumber}</span>
             </div>
           </div>
           <div>
             <h1 className="font-semibold mt-4 mb-2">Skills</h1>
             <div className="flex gap-2 flex-wrap">
-              {skilles != 0
-                ? skilles.map((skill, index) => (
-                    <Badge key={index}>{skill}</Badge>
+              {user?.profile?.skills.length !== 0
+                ? user?.profile?.skills.map((skills, index) => (
+                    <Badge key={index}>{skills}</Badge>
                   ))
                 : "na"}
             </div>
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label className={"text-md font-bold"}> Resume</Label>
-            {ishaveresume ? (
+            <Label className="text-md font-bold">Resume</Label>
+
+            {user?.profile?.resume ? (
               <a
-                href="https://www.youtube.com/"
-                target="blank"
+                href={user?.profile?.resume}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-blue-500 w-full hover:underline"
               >
-                this is your resume
+                {user?.profile?.resumeOriginalName || "View Resume"}
               </a>
             ) : (
               <span>NA</span>
