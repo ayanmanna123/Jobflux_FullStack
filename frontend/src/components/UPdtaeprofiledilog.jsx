@@ -163,7 +163,7 @@ const UPdtaeprofiledilog = ({ open, setopen }) => {
                   id="file"
                   type="file"
                   name="file"
-                  accept="application/pdf"
+                 accept="application/pdf,.doc,.docx"
                   onChange={filechangeHandelar}
                   className="col-span-3"
                 />

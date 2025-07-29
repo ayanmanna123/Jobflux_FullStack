@@ -154,11 +154,14 @@ export const updateProfile = async (req, res) => {
     const file = req.file;
     if (file) {
       const fileUri = getDataUri(file);
+      
+      // Fixed Cloudinary upload configuration
       const myCloud = await cloudinary.uploader.upload(fileUri.content, {
         folder: "resumes",
-        resource_type: "raw", // ensures Cloudinary stores it as a raw file
-        format: "pdf", // forces PDF format
-        public_id: file.originalname.split(".")[0],
+        resource_type: "auto", // Let Cloudinary detect the file type
+        // Remove format: "pdf" - this was forcing conversion
+        public_id: `resume_${userId}_${Date.now()}`, // Better naming
+        access_mode: "public", // Ensure public access
       });
 
       if (myCloud) {

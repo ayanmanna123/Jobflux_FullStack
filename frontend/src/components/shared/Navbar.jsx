@@ -9,11 +9,32 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
+import axios from "axios";
+import { setuser } from "@/Redux/authSilce";
 function Navbar() {
-  const {user} = useSelector(store=> store.auth)
- 
+  const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const naviget = useNavigate();
+  const logouthandelar = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/v1/user/logout", {
+        withCredentials: true,
+      });
+
+      if (res.data.success) {
+        dispatch(setuser(null));
+        naviget("/");
+        toast.success(res.data.message || "Logged out successfully");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  };
+
   return (
     <div className="bg-white ">
       <div className="flex items-center justify-between mx-auto max-w-full p-3 h-13">
@@ -24,9 +45,15 @@ function Navbar() {
         </div>
         <div className="flex items-center gap-12">
           <ul className="flex front-medium items-center gap-5">
-            <li><Link to="/Home">Home</Link></li>
-            <li><Link to="/jobs">Jobs</Link></li>
-            <li><Link to="/Browse">Browse</Link></li>
+            <li>
+              <Link to="/Home">Home</Link>
+            </li>
+            <li>
+              <Link to="/jobs">Jobs</Link>
+            </li>
+            <li>
+              <Link to="/Browse">Browse</Link>
+            </li>
           </ul>
           {!user ? (
             <div className="items-center gap-2 flex">
@@ -35,7 +62,7 @@ function Navbar() {
               </Link>
               <Link to="/signup">
                 <Button className="bg-[#6A38C2] hover:bg-[#5b30a6]">
-                 Sign up
+                  Sign up
                 </Button>
               </Link>
               <ThemeToggle />
@@ -62,11 +89,15 @@ function Navbar() {
                 <div className="flex flex-col my-2 text-gray-600">
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
                     <User />
-                    <Button variant="link"><Link to={"/profile"}>view profile</Link></Button>
+                    <Button variant="link">
+                      <Link to={"/profile"}>view profile</Link>
+                    </Button>
                   </div>
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
                     <LogOut />
-                    <Button variant="link">Logout</Button>
+                    <Button onClick={logouthandelar} variant="link">
+                      Logout
+                    </Button>
                   </div>
                 </div>
               </PopoverContent>
