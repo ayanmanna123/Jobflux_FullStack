@@ -3,8 +3,10 @@ import Navbar from "./shared/Navbar";
 import FilterCard from "./FilterCard";
 import Jobs from "./Jobs";
 import { Badge } from "lucide-react";
+import { useSelector } from "react-redux";
 const jobarray = [1, 2, 3, 4, 5,6];
 const Job = () => {
+  const {alljobs} = useSelector(store=> store.job)
   return (
     <div>
       <Navbar />
@@ -14,14 +16,14 @@ const Job = () => {
             <FilterCard />
           </div>
 
-          {jobarray.length <= 0 ? (
-            <snap>Job not found</snap>
+          {alljobs.length <= 0  ? (
+           <span>Job not found</span>
           ) : (
             <div className="flex-1 h-[88vh] overflow-y-auto pd-5">
               <div className="grid grid-cols-3 gap-4 ">
-                {jobarray.map((item, index) => (
-                  <div>
-                    <Jobs />
+                { alljobs.map((job) => (
+                  <div key={job._id}>
+                    <Jobs job={job} />
                   </div>
                 ))}
               </div>

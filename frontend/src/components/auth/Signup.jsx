@@ -132,8 +132,8 @@ const signup = () => {
                 <input
                   type="radio"
                   name="role"
-                  value="recruiter"
-                  checked={input.role === "recruiter"}
+                  value="requiter"
+                  checked={input.role === "requiter"}
                   onChange={changeEventHandaler}
                   className="cursor-pointer"
                 />
