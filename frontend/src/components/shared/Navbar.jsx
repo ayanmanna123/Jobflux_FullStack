@@ -43,7 +43,7 @@ function Navbar() {
             Job<span className="text-[#F83002]">Flux</span>
           </h1>
         </div>
-        <div className="flex items-center gap-12">
+        <div className="flex items-center gap-3">
           <ul className="flex front-medium items-center gap-5">
             {user && user.role === "requiter" ? (
               <>
@@ -95,7 +95,7 @@ function Navbar() {
               </PopoverTrigger>
               <ThemeToggle />
               <PopoverContent className="w-80">
-                <div className="flex items-center gap-4 ">
+                <div className="flex items-center ">
                   <Avatar className="cursor-pointer">
                     <AvatarImage
                       className="object-cover"
@@ -114,10 +114,14 @@ function Navbar() {
                 </div>
                 <div className="flex flex-col my-2 text-gray-600">
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
-                    <User />
-                    <Button variant="link">
-                      <Link to={"/profile"}>view profile</Link>
-                    </Button>
+                    {user && user.role === "student" && (
+                      <>
+                        <User />
+                        <Button variant="link">
+                          <Link to={"/profile"}>view profile</Link>
+                        </Button>
+                      </>
+                    )}
                   </div>
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
                     <LogOut />
