@@ -50,7 +50,7 @@ const Login = () => {
           withCredentials: true,
         }
       );
-
+      console.log(res.data)
       if (res.data.success) {
         dispatch(setuser(res.data.user));
         toast.success(res.data.message);
@@ -113,8 +113,8 @@ const Login = () => {
                 <input
                   type="radio"
                   name="role"
-                  value="recruiter"
-                  checked={input.role === "recruiter"}
+                  value="requiter"
+                  checked={input.role === "requiter"}
                   onChange={changeEventHandler}
                 />
                 <span>Recruiter</span>

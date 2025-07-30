@@ -45,15 +45,28 @@ function Navbar() {
         </div>
         <div className="flex items-center gap-12">
           <ul className="flex front-medium items-center gap-5">
-            <li>
-              <Link to="/Home">Home</Link>
-            </li>
-            <li>
-              <Link to="/jobs">Jobs</Link>
-            </li>
-            <li>
-              <Link to="/Browse">Browse</Link>
-            </li>
+            {user && user.role === "requiter" ? (
+              <>
+                <li>
+                  <Link to="/admin/compnaies">Company</Link>
+                </li>
+                <li>
+                  <Link to="/admine/jobs">Jobs</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/Home">Home</Link>
+                </li>
+                <li>
+                  <Link to="/jobs">Jobs</Link>
+                </li>
+                <li>
+                  <Link to="/Browse">Browse</Link>
+                </li>
+              </>
+            )}
           </ul>
           {!user ? (
             <div className="items-center gap-2 flex">
@@ -80,6 +93,7 @@ function Navbar() {
                   />
                 </Avatar>
               </PopoverTrigger>
+              <ThemeToggle />
               <PopoverContent className="w-80">
                 <div className="flex items-center gap-4 ">
                   <Avatar className="cursor-pointer">
@@ -94,7 +108,7 @@ function Navbar() {
                   <div>
                     <h4 className="font-medium">Ayan Manna</h4>
                     <p className="text-sm text-muted-foreground">
-                       {user?.profile?.bio}
+                      {user?.profile?.bio}
                     </p>
                   </div>
                 </div>
