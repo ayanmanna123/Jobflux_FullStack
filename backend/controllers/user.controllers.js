@@ -15,6 +15,10 @@ export const register = async (req, res) => {
         success: false,
       });
     }
+    const file= req.file;
+    const fileUri= getDataUri(file);
+    const cloudresponce = await cloudinary.uploader.upload(fileUri.content)
+
     const existingPhone = await User.findOne({ phonenumber });
     if (existingPhone) {
       return res.status(400).json({
@@ -37,6 +41,9 @@ export const register = async (req, res) => {
       phonenumber,
       password: hascode,
       role,
+      profile:{
+        profilephoto : cloudresponce.secure_url
+      }
     });
     return res.status(200).json({
       message: "Account created successfully",
@@ -156,13 +163,8 @@ export const updateProfile = async (req, res) => {
       const fileUri = getDataUri(file);
       
       // Fixed Cloudinary upload configuration
-      const myCloud = await cloudinary.uploader.upload(fileUri.content, {
-        folder: "resumes",
-        resource_type: "auto", // Let Cloudinary detect the file type
-        // Remove format: "pdf" - this was forcing conversion
-        public_id: `resume_${userId}_${Date.now()}`, // Better naming
-        access_mode: "public", // Ensure public access
-      });
+      const myCloud = await cloudinary.uploader.upload(fileUri.content)
+         
 
       if (myCloud) {
         user.profile.resume = myCloud.secure_url;

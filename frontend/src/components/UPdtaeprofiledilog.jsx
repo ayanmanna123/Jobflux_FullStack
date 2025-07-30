@@ -162,8 +162,8 @@ const UPdtaeprofiledilog = ({ open, setopen }) => {
                 <Input
                   id="file"
                   type="file"
-                  name="file"
-                 accept="application/pdf,.doc,.docx"
+                  accept="image/*"
+                 name="file"
                   onChange={filechangeHandelar}
                   className="col-span-3"
                 />

@@ -26,11 +26,14 @@ const Profile = () => {
             <Avatar className="h-24 w-24">
               <AvatarImage
                 className="object-cover"
-                src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
+                src={
+                  user?.profile?.profilephoto ||
+                  `https://api.dicebear.com/6.x/initials/svg?seed=${user?.fullname}`
+                }
               />
-
-              <AvatarFallback>U</AvatarFallback>
+              <AvatarFallback>{user?.fullname?.[0] || "U"}</AvatarFallback>
             </Avatar>
+
             <div>
               <h1 className="font-medium text-xl">{user?.fullname}</h1>
               <p>{user?.profile?.bio}</p>

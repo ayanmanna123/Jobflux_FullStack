@@ -71,13 +71,25 @@ function Navbar() {
             <Popover>
               <PopoverTrigger>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage
+                    className="object-cover"
+                    src={
+                      user?.profile?.profilephoto ||
+                      `https://api.dicebear.com/6.x/initials/svg?seed=${user?.fullname}`
+                    }
+                  />
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-80">
                 <div className="flex items-center gap-4 ">
                   <Avatar className="cursor-pointer">
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage
+                      className="object-cover"
+                      src={
+                        user?.profile?.profilephoto ||
+                        `https://api.dicebear.com/6.x/initials/svg?seed=${user?.fullname}`
+                      }
+                    />
                   </Avatar>
                   <div>
                     <h4 className="font-medium">Ayan Manna</h4>
