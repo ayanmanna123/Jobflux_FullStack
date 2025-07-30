@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Search } from "lucide-react";
 
 function HeroSection() {
+  
   return (
     <div className="text-center">
       <div className="flex flex-col gap-5 my-10 ">
