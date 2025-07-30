@@ -94,7 +94,7 @@ function Navbar() {
                   <div>
                     <h4 className="font-medium">Ayan Manna</h4>
                     <p className="text-sm text-muted-foreground">
-                      Lorem ipsum dolor sit
+                       {user?.profile?.bio}
                     </p>
                   </div>
                 </div>
