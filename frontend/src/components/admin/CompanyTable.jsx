@@ -97,7 +97,7 @@ const CompanyTable = () => {
                 </TableCell>
                 <TableCell className="text-center">
                   <button
-                    onClick={() => navigate(`/admin/company/${company._id}`)}
+                    onClick={() => navigate(`/admine/company/${company._id}`)}
                     className="text-indigo-600 hover:text-indigo-800 transition"
                   >
                     <MoreHorizontal />
