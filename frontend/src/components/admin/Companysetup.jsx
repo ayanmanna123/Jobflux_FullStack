@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../shared/Navbar";
 import { Button } from "../ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import usegetCompanybyid from "@/Hooks/usegetCompanybyid";
 
 const Companysetup = () => {
   const [input, setInput] = useState({
@@ -16,10 +18,12 @@ const Companysetup = () => {
     location: "",
     file: null,
   });
+  const singlecompany = useSelector((store) => store.company.singlecompany);
 
   const [loading, setLoading] = useState(false);
-  const params = useParams(); // ❗ FIXED: was missing parentheses
-  const navigate = useNavigate(); // ❗ FIXED: typo "naviget"
+  const params = useParams();
+  usegetCompanybyid(params.id);
+  const navigate = useNavigate();
 
   const changeFileHandler = (e) => {
     const file = e.target.files?.[0];
@@ -34,35 +38,47 @@ const Companysetup = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("name", input.name); // ❗ FIXED: incorrect syntax
-    formData.append("description", input.description); // ❗ was "discription"
+    formData.append("name", input.name);
+    formData.append("description", input.description);
     formData.append("website", input.website);
     formData.append("location", input.location);
     if (input.file) {
-      formData.append("file", input.file); // ❗ FIXED
+      formData.append("file", input.file);
     }
 
     try {
+      setLoading(true);
       const res = await axios.put(
         `http://localhost:5000/api/v2/company/update/${params.id}`,
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data", // ❗ FIXED: from-data → form-data
+            "Content-Type": "multipart/form-data",
           },
           withCredentials: true,
         }
       );
 
       if (res.data.success) {
+        console.log(res);
         toast.success(res.data.message);
-        navigate("/admin/compnaies"); // ❗ FIXED: typo "naviget"
       }
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
+  useEffect(() => {
+    setInput({
+      name: singlecompany?.name || "",
+      description: singlecompany?.description || "",
+      website: singlecompany?.website || "",
+      location: singlecompany?.location || "",
+      file: null, // never directly assign a file from Redux
+    });
+  }, [singlecompany]);
 
   return (
     <div>
@@ -127,9 +143,16 @@ const Companysetup = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full mt-8" disabled={loading}>
-            {loading ? "Updating..." : "Update"}
-          </Button>
+          {loading ? (
+            <Button>
+              {" "}
+              <Loader2 className={"w-full my-4 animate-spin"} />{" "}
+            </Button>
+          ) : (
+            <Button type="submit" className="w-full my-4">
+              update
+            </Button>
+          )}
         </form>
       </div>
     </div>

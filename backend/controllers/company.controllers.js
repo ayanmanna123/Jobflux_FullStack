@@ -81,6 +81,7 @@ export const updateCompany = async (req, res) => {
       return res.status(404)({
         message: "company not find",
         success: false,
+         company
       });
     }
     return res.status(200).json({
