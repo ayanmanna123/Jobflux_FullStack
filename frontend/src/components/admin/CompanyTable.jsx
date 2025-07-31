@@ -15,8 +15,10 @@ import {
   PopoverTrigger,
 } from "@radix-ui/react-popover";
 import { Edit2, MoreHorizontal, MoveHorizontal } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const CompanyTable = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Table className="border">
@@ -43,7 +45,7 @@ const CompanyTable = () => {
             <TableCell className="w-1/4 text-center">OpenAI</TableCell>
             <TableCell className="w-1/4 text-center">2025-07-30</TableCell>
             <TableCell className="w-1/4 text-center cursor-pointer">
-              <button className="text-blue-500 hover:underline cursor-pointer">
+              <button className="text-blue-500 hover:underline cursor-pointer" >
                 <span>
                   <MoreHorizontal />
                 </span>
