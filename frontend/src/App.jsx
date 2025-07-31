@@ -17,6 +17,7 @@ import Jobdescription from "./components/Jobdescription.jsx";
 import Companies from "./components/admin/Companies.jsx";
 import CompantCreat from "./components/admin/CompantCreat.jsx";
 import Companysetup from "./components/admin/Companysetup.jsx";
+import AdminJobs from "./components/admin/AdminJobs.jsx";
 
 const appRouter = createBrowserRouter([
    {
@@ -63,6 +64,11 @@ const appRouter = createBrowserRouter([
     path:  "/admine/company/:id",
     element: <Companysetup/>
   },
+     {
+    path:  "/admin/jobs",
+    element: <AdminJobs/>
+  },
+  
 ]);
 function App() {
   return (

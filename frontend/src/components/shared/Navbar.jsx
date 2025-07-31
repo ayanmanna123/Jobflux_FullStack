@@ -51,7 +51,7 @@ function Navbar() {
                   <Link to="/admin/compnaies">Company</Link>
                 </li>
                 <li>
-                  <Link to="/admine/jobs">Jobs</Link>
+                  <Link to="/admin/jobs">Jobs</Link>
                 </li>
               </>
             ) : (
