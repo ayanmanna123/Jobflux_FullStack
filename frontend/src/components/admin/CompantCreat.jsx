@@ -19,7 +19,7 @@ const CompantCreat = () => {
         { companyName },
         {
           headers: {
-            "Content-Type": "application/json", // Fixed typo
+            "Content-Type": "application/json",  
           },
           withCredentials: true,
         }
