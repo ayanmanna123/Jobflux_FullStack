@@ -9,9 +9,10 @@ import {
   TableRow,
 } from "../ui/table";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import { MoreHorizontal } from "lucide-react";
+import { Edit2, MoreHorizontal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 const CompanyTable = () => {
   const navigate = useNavigate();
@@ -96,12 +97,22 @@ const CompanyTable = () => {
                   {company.createdAt?.split("T")[0]}
                 </TableCell>
                 <TableCell className="text-center">
-                  <button
-                    onClick={() => navigate(`/admine/company/${company._id}`)}
-                    className="text-indigo-600 hover:text-indigo-800 transition"
-                  >
-                    <MoreHorizontal />
-                  </button>
+                  <Popover>
+                    <PopoverTrigger>
+                      <MoreHorizontal />
+                    </PopoverTrigger>
+                    <PopoverContent className="w-25">
+                      <div
+                        onClick={() =>
+                          navigate(`/admine/company/${company._id}`)
+                        }
+                        className="flex items-center gap-2 h-3 w-1 cursor-pointer"
+                      >
+                        <Edit2 className="w-4" />
+                        <span>Edit</span>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </TableCell>
               </TableRow>
             ))
