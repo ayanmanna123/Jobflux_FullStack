@@ -84,15 +84,16 @@ const Companysetup = () => {
     <div>
       <Navbar />
       <div className="max-w-xl mx-auto my-10">
+        <Button
+          variant={"outline"}
+          className={"flex items-center gap-2 text-gray-500"}
+          onClick={() => navigate("/admin/compnaies")}
+        >
+          <ArrowLeft />
+          <span>Back</span>
+        </Button>
         <form onSubmit={submitHandler}>
           <div className="flex items-center justify-between p-8">
-            <Button
-              variant={"outline"}
-              className={"flex items-center gap-2 text-gray-500"}
-            >
-              <ArrowLeft />
-              <span>Back</span>
-            </Button>
             <h1 className="font-bold text-xl">Company Setup</h1>
           </div>
 
