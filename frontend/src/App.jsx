@@ -18,57 +18,61 @@ import Companies from "./components/admin/Companies.jsx";
 import CompantCreat from "./components/admin/CompantCreat.jsx";
 import Companysetup from "./components/admin/Companysetup.jsx";
 import AdminJobs from "./components/admin/AdminJobs.jsx";
+import PostJob from "./components/admin/PostJob.jsx";
 
 const appRouter = createBrowserRouter([
-   {
+  {
     path: "/",
-    element: <Home/>
+    element: <Home />,
   },
   {
     path: "/Home",
-    element: <Home/>
+    element: <Home />,
   },
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
   },
   {
-    path:  "/signup",
-    element: <Signup />
+    path: "/signup",
+    element: <Signup />,
   },
   {
-    path:  "/jobs",
-    element: <Job />
+    path: "/jobs",
+    element: <Job />,
   },
   {
-    path:  "/browse",
-    element: <Brouse />
+    path: "/browse",
+    element: <Brouse />,
   },
   {
-    path:  "/profile",
-    element: <Profile />
-  },
-   {
-    path:  "/discription/:id",
-    element: <Jobdescription />
+    path: "/profile",
+    element: <Profile />,
   },
   {
-    path:  "/admin/compnaies",
-    element: <Companies />
+    path: "/discription/:id",
+    element: <Jobdescription />,
   },
   {
-    path:  "/admine/company/creat",
-    element: <CompantCreat />
+    path: "/admin/compnaies",
+    element: <Companies />,
   },
-   {
-    path:  "/admine/company/:id",
-    element: <Companysetup/>
+  {
+    path: "/admine/company/creat",
+    element: <CompantCreat />,
   },
-     {
-    path:  "/admin/jobs",
-    element: <AdminJobs/>
+  {
+    path: "/admine/company/:id",
+    element: <Companysetup />,
   },
-  
+  {
+    path: "/admin/jobs",
+    element: <AdminJobs />,
+  },
+  {
+    path: "/admin/jobs/create",
+    element: <PostJob />,
+  },
 ]);
 function App() {
   return (
