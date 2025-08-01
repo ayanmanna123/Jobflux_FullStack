@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
 
 const Appliedjjob = () => {
-   useGetAppliedJobs();
+  useGetAppliedJobs();
   const { allAppliedJobs } = useSelector((store) => store.job);
 
   const isEmpty = !allAppliedJobs || allAppliedJobs.length === 0;
@@ -47,10 +47,10 @@ const Appliedjjob = () => {
                   <Badge
                     className={`${
                       appliedJob?.status === "rejected"
-                        ? "bg-red-400"
+                        ? "bg-red-500"
                         : appliedJob.status === "pending"
-                        ? "bg-gray-400"
-                        : "bg-green-400"
+                        ? "bg-gray-600"
+                        : "bg-green-500"
                     }`}
                   >
                     {appliedJob.status.toUpperCase()}
