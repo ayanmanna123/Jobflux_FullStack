@@ -39,7 +39,7 @@ const Jobs = ({job}) => {
       <div className="">
         <h1 className="font-black tsxt-lg my-2">{job?.title}</h1>
         <p className="text-sm text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore?
+          {job?.description}
         </p>
       </div>
       <div className="flex items-center gap-2 mt-4">
