@@ -1,6 +1,8 @@
 import Job from "../model/job.model.js";
 import Company from "../model/Company.model.js";
 import mongoose from "mongoose";
+
+// #1 Create a job
 export const jobPortal = async (req, res) => {
   try {
     const {
@@ -14,7 +16,9 @@ export const jobPortal = async (req, res) => {
       position,
       companyId,
     } = req.body;
-    const userid = req.id;
+
+    const userId = req.id;
+
     if (
       !title ||
       !description ||
@@ -27,20 +31,22 @@ export const jobPortal = async (req, res) => {
       !companyId
     ) {
       return res.status(400).json({
-        message: "Something is missing",
+        message: "All fields are required.",
         success: false,
       });
     }
+
+    if (!mongoose.Types.ObjectId.isValid(companyId)) {
+      return res.status(400).json({
+        message: "Invalid company ID format.",
+        success: false,
+      });
+    }
+
     const company = await Company.findById(companyId);
     if (!company) {
-      return res.status(400).json({
-        message: "Invalid company ID",
-        success: false,
-      });
-    }
-    if (!companyId || !mongoose.Types.ObjectId.isValid(companyId)) {
-      return res.status(400).json({
-        message: "Invalid company ID format",
+      return res.status(404).json({
+        message: "Company not found.",
         success: false,
       });
     }
@@ -52,87 +58,124 @@ export const jobPortal = async (req, res) => {
       salary: Number(salary),
       location,
       jobType,
-      experiencelavel: experiencelavel,
+      experiencelavel,
       position,
       company: companyId,
-      createdBy: userid,
+      createdBy: userId,
     });
+
     return res.status(200).json({
-      message: "new job created successfully",
-      job,
+      message: "New job created successfully.",
       success: true,
+      job,
     });
   } catch (error) {
-    console.log(error);
+    console.error("JOB CREATE ERROR:", error);
+    return res.status(500).json({
+      message: "Internal server error while creating job.",
+      success: false,
+    });
   }
 };
+
+// #2 Get all jobs (with keyword filtering)
 export const getAlljobs = async (req, res) => {
   try {
     const keyword = req.query.keyword || "";
+
     const query = {
       $or: [
         { title: { $regex: keyword, $options: "i" } },
         { description: { $regex: keyword, $options: "i" } },
       ],
     };
+
     const jobs = await Job.find(query)
-      .populate({
-        path: "company",
-      })
+      .populate({ path: "company" })
       .sort({ createdAt: -1 });
-    if (!jobs) {
+
+    if (!jobs || jobs.length === 0) {
       return res.status(404).json({
-        message: "Jobs not found.",
+        message: "No jobs found.",
         success: false,
       });
     }
+
     return res.status(200).json({
-      jobs,
       success: true,
+      jobs,
     });
   } catch (error) {
-    console.log(error);
+    console.error("GET ALL JOBS ERROR:", error);
+    return res.status(500).json({
+      message: "Internal server error while fetching jobs.",
+      success: false,
+    });
   }
 };
+
+// #3 Get job by ID
 export const getjobById = async (req, res) => {
   try {
     const jobId = req.params.id;
 
-    const job = await Job.findById(jobId).populate({
-      path: "applications"
-    });
-    if (!job) {
-      return res.status(404).json({
-        message: "Jobs not found.",
+    if (!mongoose.Types.ObjectId.isValid(jobId)) {
+      return res.status(400).json({
+        message: "Invalid job ID format.",
         success: false,
       });
     }
-    return res.status(200).json({ job, success: true });
-  } catch (error) {
-    console.log(error);
-  }
-};
 
-export const getadminjob = async (req, res) => {
-  try {
-    console.log("hello")
-    const admineid = req.id;
-    const jobs = await Job.find({ createdBy: admineid }).populate({
-            path:'company',
-            createdAt:-1
-        });
+    const job = await Job.findById(jobId).populate({
+      path: "applications",
+    });
 
-    if (jobs.length === 0) {
+    if (!job) {
       return res.status(404).json({
-        message: "job not found",
-        success: true,
+        message: "Job not found.",
+        success: false,
       });
     }
+
     return res.status(200).json({
-      jobs,
       success: true,
+      job,
     });
   } catch (error) {
-    console.log(error);
+    console.error("GET JOB BY ID ERROR:", error);
+    return res.status(500).json({
+      message: "Internal server error while fetching job.",
+      success: false,
+    });
   }
 };
+
+// #4 Get all jobs created by the current admin
+export const getadminjob = async (req, res) => {
+  try {
+    const adminId = req.id;
+
+    const jobs = await Job.find({ createdBy: adminId })
+      .populate({ path: "company" })
+      .sort({ createdAt: -1 });
+
+    if (!jobs || jobs.length === 0) {
+      return res.status(404).json({
+        message: "No jobs found for this admin.",
+        success: true, // still true if request is valid but empty
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      jobs,
+    });
+  } catch (error) {
+    console.error("GET ADMIN JOBS ERROR:", error);
+    return res.status(500).json({
+      message: "Internal server error while fetching admin jobs.",
+      success: false,
+    });
+  }
+};
+
