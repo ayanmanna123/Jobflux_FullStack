@@ -115,6 +115,7 @@ export const getjobById = async (req, res) => {
 
 export const getadminjob = async (req, res) => {
   try {
+    console.log("hello")
     const admineid = req.id;
     const jobs = await Job.find({ createdBy: admineid }).populate({
             path:'company',

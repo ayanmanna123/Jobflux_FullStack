@@ -13,8 +13,10 @@ import { Edit2, MoreHorizontal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import usegetAllCompanies from "@/hooks/usegetAllCompanies";
 
 const CompanyTable = () => {
+  usegetAllCompanies()
   const navigate = useNavigate();
   const { companies, searchcompanyBytext } = useSelector(
     (store) => store.company
@@ -42,7 +44,7 @@ const CompanyTable = () => {
           <TableRow className="bg-gray-100 text-gray-800 uppercase text-xs tracking-wider">
             <TableHead className="text-center py-3">Logo</TableHead>
             <TableHead className="text-center py-3">Name</TableHead>
-            <TableHead className="text-center py-3">Description</TableHead>
+             
             <TableHead className="text-center py-3">Location</TableHead>
             <TableHead className="text-center py-3">Website</TableHead>
             <TableHead className="text-center py-3">Date</TableHead>
@@ -77,9 +79,7 @@ const CompanyTable = () => {
                 <TableCell className="text-center font-medium">
                   {company.name}
                 </TableCell>
-                <TableCell className="text-center">
-                  {company.description || "—"}
-                </TableCell>
+                
                 <TableCell className="text-center">
                   {company.location || "—"}
                 </TableCell>
