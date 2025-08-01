@@ -19,6 +19,7 @@ import CompantCreat from "./components/admin/CompantCreat.jsx";
 import Companysetup from "./components/admin/Companysetup.jsx";
 import AdminJobs from "./components/admin/AdminJobs.jsx";
 import PostJob from "./components/admin/PostJob.jsx";
+import Applicants from "./components/admin/Applicants.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -53,6 +54,7 @@ const appRouter = createBrowserRouter([
     path: "/discription/:id",
     element: <Jobdescription />,
   },
+  // that is for admin only
   {
     path: "/admin/compnaies",
     element: <Companies />,
@@ -72,6 +74,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/admin/jobs/create",
     element: <PostJob />,
+  },
+   {
+    path: "/admin/jobs/:id/applicants",
+    element: < Applicants />,
   },
 ]);
 function App() {
