@@ -25,14 +25,14 @@ const Jobs = ({job}) => {
         <Button className="p-6" variant="outline" size="icon">
           <Avatar className="w-10 h-10">
             <AvatarImage
-              src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
+              src={job?.company?.logo}
               alt="Logo"
             />
             <AvatarFallback>CL</AvatarFallback>
           </Avatar>
         </Button>
         <div>
-          <h1 className="font-medium text-lg"> {job?.company?.name}</h1>
+          <h1 className="font-medium text-lg"> {job?.alljobs?.company?.name}</h1>
           <p className="text-sm text-shadow-gray-500">India</p>
         </div>
       </div>
