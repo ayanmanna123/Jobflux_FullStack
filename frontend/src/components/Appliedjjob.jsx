@@ -9,12 +9,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { useSelector } from "react-redux";
+import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
 
 const Appliedjjob = () => {
+   useGetAppliedJobs();
+  const { allAppliedJobs } = useSelector((store) => store.job);
+
+  const isEmpty = !allAppliedJobs || allAppliedJobs.length === 0;
+
   return (
     <div>
       <Table>
-        <TableCaption >A list of your applied job</TableCaption>
+        <TableCaption>A list of your applied job</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Date</TableHead>
@@ -24,14 +31,34 @@ const Appliedjjob = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {[1, 2, 3].map((item, index) => (
-            <TableRow key={index}>
-              <TableCell className="font-medium">23-03-2024</TableCell>
-              <TableCell>Frontend Backend</TableCell>
-              <TableCell>Google</TableCell>
-              <TableCell className="text-right"> <Badge>Selected</Badge></TableCell>
+          {isEmpty ? (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center">
+                You haven't applied any job yet.
+              </TableCell>
             </TableRow>
-          ))}
+          ) : (
+            allAppliedJobs.map((appliedJob) => (
+              <TableRow key={appliedJob._id}>
+                <TableCell>{appliedJob?.createdAt?.split("T")[0]}</TableCell>
+                <TableCell>{appliedJob.job?.title}</TableCell>
+                <TableCell>{appliedJob.job?.company?.name}</TableCell>
+                <TableCell className="text-right">
+                  <Badge
+                    className={`${
+                      appliedJob?.status === "rejected"
+                        ? "bg-red-400"
+                        : appliedJob.status === "pending"
+                        ? "bg-gray-400"
+                        : "bg-green-400"
+                    }`}
+                  >
+                    {appliedJob.status.toUpperCase()}
+                  </Badge>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </div>
