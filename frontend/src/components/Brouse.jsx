@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./shared/Navbar";
 import Jobs from "./Jobs";
-const rendomJobs = [1, 2, 3,4 ,5,6];
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchedQuery } from "@/Redux/jobSlice";
+import usegetAllJobs from "@/hooks/usegetAllJobs";
+ 
 const Brouse = () => {
+  usegetAllJobs()
+  const {alljobs} = useSelector(store=>store.job)
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    return ()=>{
+      dispatch(setSearchedQuery(""))
+    }
+  },[])
   return (
     <div className="">
       <Navbar />
       <div className="max-w-7xl mx-auto my-10">
-        <h1 className="font-bold">Search result- ({rendomJobs.length})</h1>
+        <h1 className="font-bold">Search result- ({alljobs.length})</h1>
         <div className="grid gap-4 grid-cols-3 ">
-          {rendomJobs.map((item, index) => {
-            return <Jobs />;
+          {alljobs.map((job) => {
+            return <Jobs job={job} key={job._id}/>;
           })}
         </div>
       </div>
