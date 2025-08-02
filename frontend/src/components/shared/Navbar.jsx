@@ -106,7 +106,7 @@ function Navbar() {
                     />
                   </Avatar>
                   <div>
-                    <h4 className="font-medium">Ayan Manna</h4>
+                    <h4 className="font-medium">{user?.fullname}</h4>
                     <p className="text-sm text-muted-foreground">
                       {user?.profile?.bio}
                     </p>

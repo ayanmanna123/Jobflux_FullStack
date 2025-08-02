@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 import User from "../model/user.model.js";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
-
+import sendEmail from "../utils/sendEmail.js";
+import crypto from "crypto";
 // #1 Create user
 export const register = async (req, res) => {
   try {
@@ -37,18 +38,23 @@ export const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    const verificationCode = crypto.randomBytes(3).toString("hex");
     await User.create({
       fullname,
       email,
       phonenumber,
       password: hashedPassword,
+      verificationCode,
       role,
       profile: {
         profilephoto: cloudResponse.secure_url,
       },
     });
-
+    await sendEmail(
+      email,
+      "Email Verification Code",
+      `Your code is: ${verificationCode}`
+    );
     return res.status(200).json({
       message: "Account created successfully.",
       success: true,
@@ -78,6 +84,14 @@ export const login = async (req, res) => {
     if (!user) {
       return res.status(400).json({
         message: "User not found with this email.",
+        success: false,
+      });
+    }
+
+    // ✅ Check if user is verified
+    if (!user.isVerified) {
+      return res.status(403).json({
+        message: "Please verify your email before logging in.",
         success: false,
       });
     }
@@ -205,12 +219,10 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-
 export const updateProfilePhoto = async (req, res) => {
   try {
-   
     const userId = req.id;
-      let user = await User.findById(userId);
+    let user = await User.findById(userId);
     if (!user)
       return res
         .status(404)
@@ -228,14 +240,34 @@ export const updateProfilePhoto = async (req, res) => {
     user.profile.profilephoto = upload.secure_url;
     await user.save();
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Profile photo updated",
-        profilephoto: upload.secure_url,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Profile photo updated",
+      profilephoto: upload.secure_url,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error", error });
   }
+};
+
+export const verifyEmail = async (req, res) => {
+  const { email, code } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user || user.verificationCode !== code) {
+    return res.status(400).json({
+      message: "Invalid verification code.",
+      success: false,
+    });
+  }
+
+  user.isVerified = true;
+  user.verificationCode = undefined; // clear the code
+  await user.save();
+
+  return res.status(200).json({
+    message: "Email verified successfully.",
+    success: true,
+  });
 };

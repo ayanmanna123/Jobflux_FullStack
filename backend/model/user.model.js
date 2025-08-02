@@ -24,6 +24,13 @@ const userSchema = new mongoose.Schema(
       enum: ["student", "requiter"],
       required: true,
     },
+    verificationCode: {
+      type: String,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     profile: {
       bio: { type: String },
       skills: [{ type: String }],

@@ -22,6 +22,7 @@ import PostJob from "./components/admin/PostJob.jsx";
 import Applicants from "./components/admin/Applicants.jsx";
 import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";
 import ProtectedRouteStudent from "./components/admin/ProtectedRouteStudent.jsx";
+import VerifyEmail from "./components/VerifyEmail.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/user/varify",
+    element: <VerifyEmail />,
   },
   {
     path: "/jobs",

@@ -53,7 +53,7 @@ const signup = () => {
         }
       );
       if (res.data.success) {
-        navigate("/login");
+        navigate("/user/varify");
         toast.success(res.data.message);
       }
     } catch (error) {
