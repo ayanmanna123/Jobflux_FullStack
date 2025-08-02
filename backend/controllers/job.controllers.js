@@ -55,7 +55,7 @@ export const jobPortal = async (req, res) => {
       title,
       description,
       requirements: requirements.split(" "),
-      salary: Number(salary),
+      salary,
       location,
       jobType,
       experiencelavel,
