@@ -4,7 +4,6 @@ import {
   logout,
   register,
   updateProfile,
-  updateProfilePhoto,
 } from "../controllers/user.controllers.js";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 import { singleUplode } from "../middlewares/multer.js";
@@ -17,5 +16,5 @@ router.route("/logout").get(logout);
 
 // ✅ Fix applied here:
 router.route("/profile/updateProfile").post(isAuthenticated, singleUplode, updateProfile);
-router.route("/upload-profile-photo").put ( isAuthenticated, singleUplode, updateProfilePhoto);
+
 export default router;
