@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import axios from "axios";
-   
+
 import { useNavigate } from "react-router-dom";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
 const VerifyEmail = () => {
-  const [email, setEmail] = useState(""); // you can prefill if you store email in localStorage
+  // you can prefill if you store email in localStorage
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const email = useSelector((state) => state.auth.signupEmail);
   const handleVerify = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/v1/user/verify-email", {
-        email,
-        code,
-      });
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/user/verify-email",
+        {
+          email,
+          code,
+        }
+      );
 
       if (res.data.success) {
         toast.success(res.data.message);
@@ -42,17 +46,6 @@ const VerifyEmail = () => {
         className="bg-white p-6 rounded shadow-md w-96 space-y-4"
       >
         <h2 className="text-2xl font-bold text-center">Verify Your Email</h2>
-
-        <div>
-          <label className="block mb-1 font-medium">Email</label>
-          <Input
-            type="email"
-            value={email}
-            placeholder="Enter your registered email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
 
         <div>
           <label className="block mb-1 font-medium">Verification Code</label>

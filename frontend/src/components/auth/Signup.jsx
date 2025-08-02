@@ -10,6 +10,8 @@ import { Loader2, LoaderIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import axios from "axios";
+
+import { setSignupEmail } from "@/Redux/authSilce.js";
 const signup = () => {
   const [input, setinput] = useState({
     fullname: "",
@@ -26,7 +28,7 @@ const signup = () => {
   const changeFileHandler = (e) => {
     setinput({ ...input, file: e.target.files?.[0] });
   };
-  const { loding ,user } = useSelector((store) => store.auth); // Replace 'auth' with your actual slice name
+  const { loding, user } = useSelector((store) => store.auth); // Replace 'auth' with your actual slice name
 
   const dispatch = useDispatch();
   const submitHandler = async (e) => {
@@ -41,7 +43,7 @@ const signup = () => {
       fromdata.append("file", input.file);
     }
     try {
-       dispatch(setLoding(true));
+      dispatch(setLoding(true));
       const res = await axios.post(
         `http://localhost:5000/api/v1/user/register`,
         fromdata,
@@ -53,22 +55,24 @@ const signup = () => {
         }
       );
       if (res.data.success) {
-        navigate("/user/varify");
+        dispatch(setSignupEmail(input.email));
+
         toast.success(res.data.message);
+        navigate("/user/varify");
       }
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Signup failed");
-    }finally{
+    } finally {
       dispatch(setLoding(false));
     }
   };
-   useEffect(() => {
-      if (user) {
-        toast.error("At first logout this page")
-        navigate("/");
-      }
-    }, []);
+  useEffect(() => {
+    if (user) {
+      toast.error("At first logout this page");
+      navigate("/");
+    }
+  }, []);
   return (
     <div>
       <Navbar />
