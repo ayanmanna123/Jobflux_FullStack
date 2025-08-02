@@ -178,4 +178,3 @@ export const getadminjob = async (req, res) => {
     });
   }
 };
-
