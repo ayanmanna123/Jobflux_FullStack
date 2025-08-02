@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ const VerifyEmail = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const email = useSelector((state) => state.auth.signupEmail);
+  const { loding ,user } = useSelector((store) => store.auth);
   const handleVerify = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -38,9 +39,16 @@ const VerifyEmail = () => {
       setLoading(false);
     }
   };
+   useEffect(() => {
+      if (user) {
+        toast.error("At first logout this page ")
+        navigate("/");
+      }
+    }, []);
+  
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen bg-gray-50">
       <form
         onSubmit={handleVerify}
         className="bg-white p-6 rounded shadow-md w-96 space-y-4"
