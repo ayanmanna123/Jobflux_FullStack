@@ -19,6 +19,7 @@ const ProfileUpdateDialog = ({ open, setopen }) => {
   const inputRef = useRef();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState({
@@ -42,6 +43,7 @@ const ProfileUpdateDialog = ({ open, setopen }) => {
   const handleImageClick = () => inputRef.current.click();
 
   const handleProfilePhotoUpload = async (file) => {
+    setIsUploadingPhoto(true);
     const formData = new FormData();
     formData.append("file", file);
 
@@ -60,6 +62,8 @@ const ProfileUpdateDialog = ({ open, setopen }) => {
       }
     } catch (err) {
       toast.error("Failed to upload profile photo");
+    } finally {
+      setIsUploadingPhoto(false); // ✅ Done
     }
   };
 
@@ -136,38 +140,90 @@ const ProfileUpdateDialog = ({ open, setopen }) => {
         <form onSubmit={submitHandler}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">Name</Label>
-              <Input id="name" value={input.fullname} name="fullname" onChange={changeHandler} className="col-span-3" />
+              <Label htmlFor="name" className="text-right">
+                Name
+              </Label>
+              <Input
+                id="name"
+                value={input.fullname}
+                name="fullname"
+                onChange={changeHandler}
+                className="col-span-3"
+              />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="email" className="text-right">Email</Label>
-              <Input id="email" value={input.email} name="email" onChange={changeHandler} className="col-span-3" />
+              <Label htmlFor="email" className="text-right">
+                Email
+              </Label>
+              <Input
+                id="email"
+                value={input.email}
+                name="email"
+                onChange={changeHandler}
+                className="col-span-3"
+              />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="number" className="text-right">Number</Label>
-              <Input id="number" value={input.phonenumber} name="phonenumber" onChange={changeHandler} className="col-span-3" />
+              <Label htmlFor="number" className="text-right">
+                Number
+              </Label>
+              <Input
+                id="number"
+                value={input.phonenumber}
+                name="phonenumber"
+                onChange={changeHandler}
+                className="col-span-3"
+              />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="bio" className="text-right">Bio</Label>
-              <Input id="bio" value={input.bio} name="bio" onChange={changeHandler} className="col-span-3" />
+              <Label htmlFor="bio" className="text-right">
+                Bio
+              </Label>
+              <Input
+                id="bio"
+                value={input.bio}
+                name="bio"
+                onChange={changeHandler}
+                className="col-span-3"
+              />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="skills" className="text-right">Skills</Label>
-              <Input id="skills" value={input.skills} name="skills" onChange={changeHandler} className="col-span-3" />
+              <Label htmlFor="skills" className="text-right">
+                Skills
+              </Label>
+              <Input
+                id="skills"
+                value={input.skills}
+                name="skills"
+                onChange={changeHandler}
+                className="col-span-3"
+              />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="file" className="text-right">Resume</Label>
-              <Input id="file" type="file" accept="image/*" name="file" onChange={fileChangeHandler} className="col-span-3" />
+              <Label htmlFor="file" className="text-right">
+                Resume
+              </Label>
+              <Input
+                id="file"
+                type="file"
+                accept="image/*"
+                name="file"
+                onChange={fileChangeHandler}
+                className="col-span-3"
+              />
             </div>
           </div>
           <DialogFooter>
-            {loading ? (
-              <Button disabled>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
-              </Button>
-            ) : (
-              <Button type="submit">Update</Button>
-            )}
+            <Button type="submit" disabled={loading || isUploadingPhoto}>
+              {loading || isUploadingPhoto ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  {isUploadingPhoto ? "Uploading photo..." : "Updating..."}
+                </>
+              ) : (
+                "Update"
+              )}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
