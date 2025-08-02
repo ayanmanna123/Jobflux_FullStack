@@ -20,6 +20,8 @@ import Companysetup from "./components/admin/Companysetup.jsx";
 import AdminJobs from "./components/admin/AdminJobs.jsx";
 import PostJob from "./components/admin/PostJob.jsx";
 import Applicants from "./components/admin/Applicants.jsx";
+import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";
+import ProtectedRouteStudent from "./components/admin/ProtectedRouteStudent.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -40,44 +42,85 @@ const appRouter = createBrowserRouter([
   },
   {
     path: "/jobs",
-    element: <Job />,
+    element: (
+      <ProtectedRouteStudent>
+        <Job />
+      </ProtectedRouteStudent>
+    ),
   },
   {
     path: "/browse",
-    element: <Brouse />,
+    element: (
+      <ProtectedRouteStudent>
+        <Brouse />
+      </ProtectedRouteStudent>
+    ),
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: (
+      <ProtectedRouteStudent>
+        <Profile />,
+      </ProtectedRouteStudent>
+    ),
   },
   {
     path: "/discription/:id",
-    element: <Jobdescription />,
+    element: (
+      <ProtectedRouteStudent>
+        <Jobdescription />
+      </ProtectedRouteStudent>
+    ),
   },
   // that is for admin only
   {
     path: "/admin/compnaies",
-    element: <Companies />,
+    element: (
+      <ProtectedRoute>
+        <Companies />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admine/company/creat",
-    element: <CompantCreat />,
+    element: (
+      <ProtectedRoute>
+        {" "}
+        <CompantCreat />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admine/company/:id",
-    element: <Companysetup />,
+    element: (
+      <ProtectedRoute>
+        <Companysetup />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin/jobs",
-    element: <AdminJobs />,
+    element: (
+      <ProtectedRoute>
+        <AdminJobs />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin/jobs/create",
-    element: <PostJob />,
+    element: (
+      <ProtectedRoute>
+        <PostJob />
+      </ProtectedRoute>
+    ),
   },
-   {
+  {
     path: "/admin/jobs/:id/applicants",
-    element: < Applicants />,
+    element: (
+      <ProtectedRoute>
+        <Applicants />
+      </ProtectedRoute>
+    ),
   },
 ]);
 function App() {

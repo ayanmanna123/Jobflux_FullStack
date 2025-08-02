@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import { Label } from "@/components/ui/label";
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoding , setuser } from "@/Redux/authSilce.js";
+import { setLoding, setuser } from "@/Redux/authSilce.js";
 import { store } from "@/Redux/store.js";
 import { Loader2, LoaderIcon } from "lucide-react";
 
@@ -21,7 +21,7 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
-  const { loding } = useSelector((store) => store.auth); // Replace 'auth' with your actual slice name
+  const { loding ,user } = useSelector((store) => store.auth); // Replace 'auth' with your actual slice name
 
   const dispatch = useDispatch();
   const changeEventHandler = (e) => {
@@ -50,7 +50,7 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(res.data)
+      console.log(res.data);
       if (res.data.success) {
         dispatch(setuser(res.data.user));
         toast.success(res.data.message);
@@ -63,6 +63,12 @@ const Login = () => {
       dispatch(setLoding(false));
     }
   };
+  useEffect(() => {
+    if (user) {
+      toast.error("At first logout this page ")
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div>

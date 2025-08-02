@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../shared/Navbar.jsx";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -26,7 +26,7 @@ const signup = () => {
   const changeFileHandler = (e) => {
     setinput({ ...input, file: e.target.files?.[0] });
   };
-  const { loding } = useSelector((store) => store.auth); // Replace 'auth' with your actual slice name
+  const { loding ,user } = useSelector((store) => store.auth); // Replace 'auth' with your actual slice name
 
   const dispatch = useDispatch();
   const submitHandler = async (e) => {
@@ -63,6 +63,12 @@ const signup = () => {
       dispatch(setLoding(false));
     }
   };
+   useEffect(() => {
+      if (user) {
+        toast.error("At first logout this page")
+        navigate("/");
+      }
+    }, []);
   return (
     <div>
       <Navbar />
