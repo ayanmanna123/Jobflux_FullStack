@@ -11,6 +11,8 @@ function HeroSection() {
   const navigate = useNavigate();
 
   const searchJobHandler = () => {
+    if (!query.trim()) return;
+    console.log(query)
     dispatch(setSearchedQuery(query));
     navigate("/browse");
   };

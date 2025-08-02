@@ -204,3 +204,38 @@ export const updateProfile = async (req, res) => {
     });
   }
 };
+
+
+export const updateProfilePhoto = async (req, res) => {
+  try {
+   
+    const userId = req.id;
+      let user = await User.findById(userId);
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+
+    const file = req.file;
+    if (!file)
+      return res
+        .status(400)
+        .json({ success: false, message: "No file uploaded" });
+
+    const fileUri = getDataUri(file);
+    const upload = await cloudinary.uploader.upload(fileUri.content);
+
+    user.profile.profilephoto = upload.secure_url;
+    await user.save();
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Profile photo updated",
+        profilephoto: upload.secure_url,
+      });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server Error", error });
+  }
+};
