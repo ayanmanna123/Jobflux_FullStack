@@ -12,7 +12,7 @@ import Signup from "./components/auth/Signup";
 import Home from "./components/Home.jsx";
 import Job from "./components/Job.jsx";
 import Brouse from "./components/Brouse.jsx";
-import Profile from "./components/profile.jsx";
+import Profile from "./components/Profile.jsx";
 import Jobdescription from "./components/Jobdescription.jsx";
 import Companies from "./components/admin/Companies.jsx";
 import CompantCreat from "./components/admin/CompantCreat.jsx";
