@@ -1,7 +1,7 @@
 import React from "react";
 import { LogOut } from "lucide-react";
 import { User } from "lucide-react";
-import ThemeToggle from "../ThemeToggle";
+ 
 import {
   Popover,
   PopoverContent,
@@ -20,9 +20,12 @@ function Navbar() {
   const naviget = useNavigate();
   const logouthandelar = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/v1/user/logout", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://jobflux-full-stack.vercel.app/api/v1/user/logout",
+        {
+          withCredentials: true,
+        }
+      );
 
       if (res.data.success) {
         dispatch(setuser(null));
@@ -43,7 +46,7 @@ function Navbar() {
             Job<span className="text-[#F83002]">Flux</span>
           </h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-5 p-6">
           <ul className="flex front-medium items-center gap-5">
             {user && user.role === "requiter" ? (
               <>
@@ -78,7 +81,6 @@ function Navbar() {
                   Sign up
                 </Button>
               </Link>
-              <ThemeToggle />
             </div>
           ) : (
             <Popover>
@@ -93,8 +95,8 @@ function Navbar() {
                   />
                 </Avatar>
               </PopoverTrigger>
-              <ThemeToggle />
-              <PopoverContent className="w-80">
+
+              <PopoverContent className="w-80 ">
                 <div className="flex items-center ">
                   <Avatar className="cursor-pointer">
                     <AvatarImage
