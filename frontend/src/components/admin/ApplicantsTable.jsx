@@ -12,7 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { MoreHorizontal } from "lucide-react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
- 
+import { Badge } from "@/components/ui/badge";
 import axios from "axios";
 
 const shortlistingStatus = ["Accepted", "Rejected"];
@@ -42,13 +42,14 @@ const ApplicantsTable = () => {
       <Table>
         <TableCaption>A list of your recent applied user</TableCaption>
         <TableHeader>
-          <TableRow>
+          <TableRow className={'gap-4'}>
             <TableHead>FullName</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Contact</TableHead>
             <TableHead>Resume</TableHead>
             <TableHead>Date</TableHead>
-            <TableHead className="text-right">Action</TableHead>
+            <TableHead className="text-right" >Action</TableHead>
+             <TableHead >Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -72,7 +73,9 @@ const ApplicantsTable = () => {
                     <span>NA</span>
                   )}
                 </TableCell>
-                <TableCell>{item?.applicant.createdAt.split("T")[0]}</TableCell>
+                <TableCell>
+                  {item?.applicant?.createdAt.split("T")[0]}
+                </TableCell>
                 <TableCell className="float-right cursor-pointer">
                   <Popover>
                     <PopoverTrigger>
@@ -92,6 +95,20 @@ const ApplicantsTable = () => {
                       })}
                     </PopoverContent>
                   </Popover>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  <Badge
+                    className={`${
+                      item?.status === "rejected"
+                        ? "bg-red-500"
+                        : item.status === "pending"
+                        ? "bg-gray-600"
+                        : "bg-green-500"
+                    }`}
+                  >
+                    {item.status.toUpperCase()}
+                  </Badge>{" "}
                 </TableCell>
               </tr>
             ))}
