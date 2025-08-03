@@ -86,6 +86,7 @@ export const login = async (req, res) => {
         message: "User not found with this email.",
         success: false,
       });
+    
     }
 
     // ✅ Check if user is verified
