@@ -69,6 +69,7 @@ export const register = async (req, res) => {
 };
 
 // #2 Login route
+// #2 Login route
 export const login = async (req, res) => {
   const { email, password, role } = req.body;
 
@@ -119,13 +120,20 @@ export const login = async (req, res) => {
       expiresIn: "1d",
     });
 
+    // 🔧 FIXED: Cookie settings for cross-origin requests
+    const cookieOptions = {
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      httpOnly: true,
+      secure: true, // Required for cross-origin and HTTPS
+      sameSite: "none", // Required for cross-origin requests
+    };
+
+    console.log("🍪 Setting cookie with options:", cookieOptions);
+    console.log("🔑 Token generated:", token.substring(0, 20) + "...");
+
     return res
       .status(200)
-      .cookie("token", token, {
-        maxAge: 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        sameSite: "strict",
-      })
+      .cookie("token", token, cookieOptions)
       .json({
         message: "Login successful.",
         success: true,
