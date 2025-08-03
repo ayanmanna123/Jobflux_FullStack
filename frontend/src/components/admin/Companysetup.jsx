@@ -8,7 +8,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
-import usegetCompanybyid from "@/Hooks/usegetCompanybyid";
+import usegetCompanybyid from "@/hooks/usegetCompanybyid";
 
 const Companysetup = () => {
   const [input, setInput] = useState({
