@@ -1,4 +1,4 @@
-import { setsinglecompany } from "@/Redux/companyslice";
+import { setsinglecompany } from "@/Redux/companySlice";
 import { setAlljobs } from "@/Redux/jobSlice";
 import axios from "axios";
 import React, { useEffect } from "react";

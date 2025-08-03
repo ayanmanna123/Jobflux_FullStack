@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
-import { setsinglecompany } from "@/Redux/companyslice";
+import { setsinglecompany } from "@/Redux/companySlice";
 const CompantCreat = () => {
   const navigate = useNavigate();
   const [companyName, setCompanyName] = useState();
