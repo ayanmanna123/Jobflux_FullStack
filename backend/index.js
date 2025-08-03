@@ -18,13 +18,10 @@ const port = process.env.PORT || 3000;
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://jobflux-full-stack-8sja.vercel.app"
+    "https://jobflux-full-stack-8sja.vercel.app",
   ],
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization", "auth-token"]
 };
-
 app.use(cors(corsOptions));
 
 // ✅ Middlewares
@@ -35,7 +32,7 @@ app.use(cookieParser());
 // ✅ Test Route
 app.get("/", (req, res) => {
   return res.status(200).json({
-    message: "Hello from backend"
+    message: "Hello from backend",
   });
 });
 
