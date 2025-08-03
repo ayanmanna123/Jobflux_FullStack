@@ -124,7 +124,8 @@ export const login = async (req, res) => {
       .cookie("token", token, {
         maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none", // allow cross-site
+        secure: true, // required for "none" in production
       })
       .json({
         message: "Login successful.",
@@ -140,6 +141,7 @@ export const login = async (req, res) => {
       });
   } catch (error) {
     console.error("LOGIN ERROR:", error);
+    console.log(error);
     return res.status(500).json({
       message: "Internal server error during login.",
       success: false,
