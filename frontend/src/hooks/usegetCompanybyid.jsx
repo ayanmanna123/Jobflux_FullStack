@@ -10,7 +10,7 @@ const usegetCompanybyid = (companyId) => {
     const fatchsinglecompany = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/v2/company/get/${companyId}`,
+          `https://jobflux-full-stack.vercel.app/api/v2/company/get/${companyId}`,
           { withCredentials: true }
         );
         if (res.data.success) {

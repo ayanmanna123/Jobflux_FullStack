@@ -25,7 +25,7 @@ const ApplicantsTable = () => {
     try {
       axios.defaults.withCredentials = true;
       const res = await axios.post(
-        `http://localhost:5000/api/v4/application/status/${id}/update`,
+        `https://jobflux-full-stack.vercel.app/api/v4/application/status/${id}/update`,
         { status }
       );
       console.log(res);

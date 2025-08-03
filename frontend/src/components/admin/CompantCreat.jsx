@@ -15,7 +15,7 @@ const CompantCreat = () => {
   const regesterNewcompany = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v2/company/regestercompany",
+        "https://jobflux-full-stack.vercel.app/api/v2/company/regestercompany",
         { companyName },
         {
           headers: {

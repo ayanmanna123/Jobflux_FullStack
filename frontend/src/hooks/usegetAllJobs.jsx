@@ -10,7 +10,7 @@ const useGetAllJobs = () => {
     useEffect(()=>{
         const fetchAllJobs = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/v3/job/getalljob?keyword=${searchedQuery}`,{withCredentials:true});
+                const res = await axios.get(`https://jobflux-full-stack.vercel.app/api/v3/job/getalljob?keyword=${searchedQuery}`,{withCredentials:true});
                 if(res.data.success){
                     dispatch(setAlljobs(res.data.jobs));
                 }

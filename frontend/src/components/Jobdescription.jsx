@@ -19,7 +19,7 @@ const Jobdescription = () => {
 
    const applyJobHandler = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/v4/application/apply/${jobid}`, {withCredentials:true});
+            const res = await axios.get(`https://jobflux-full-stack.vercel.app/api/v4/application/apply/${jobid}`, {withCredentials:true});
             console.log(res.data);
             if(res.data.success){
                
@@ -39,7 +39,7 @@ const Jobdescription = () => {
   useEffect(() => {
     const fetchSingleJob = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/v3/job/get/${jobid}`, {
+        const res = await axios.get(`https://jobflux-full-stack.vercel.app/api/v3/job/get/${jobid}`, {
           withCredentials: true,
         });
         if (res.data.success) {

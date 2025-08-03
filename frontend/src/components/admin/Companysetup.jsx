@@ -49,7 +49,7 @@ const Companysetup = () => {
     try {
       setLoading(true);
       const res = await axios.put(
-        `http://localhost:5000/api/v2/company/update/${params.id}`,
+        `https://jobflux-full-stack.vercel.app/api/v2/company/update/${params.id}`,
         formData,
         {
           headers: {

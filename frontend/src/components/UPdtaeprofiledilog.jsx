@@ -49,7 +49,7 @@ const ProfileUpdateDialog = ({ open, setopen }) => {
 
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/v1/user/upload-profile-photo",
+        "https://jobflux-full-stack.vercel.app/api/v1/user/upload-profile-photo",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -81,7 +81,7 @@ const ProfileUpdateDialog = ({ open, setopen }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v1/user/profile/updateProfile",
+        "https://jobflux-full-stack.vercel.app/api/v1/user/profile/updateProfile",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
