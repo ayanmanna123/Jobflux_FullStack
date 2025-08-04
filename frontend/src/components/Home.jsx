@@ -8,22 +8,22 @@ import usegetAllJobs from "@/hooks/usegetAllJobs.jsx";
 import { useSelector } from "react-redux";
 import { store } from "@/Redux/store.js";
 import { useNavigate } from "react-router-dom";
+import CountAll from "./DashboardStats.jsx";
+import DashboardStats from "./DashboardStats.jsx";
+ 
 
 const Home = () => {
   usegetAllJobs();
   const { user } = useSelector((store) => store.auth);
   const naviget = useNavigate();
-  useEffect(() => {
-    if (user?.role === "requiter") {
-      naviget("/admin/compnaies");
-    }
-  }, []);
+  
   return (
     <div>
       <Navbar />
       <HeroSection />
       <CatagoryCorouscomponent />
       <LatestJob />
+      <DashboardStats />
       <Footer />
     </div>
   );

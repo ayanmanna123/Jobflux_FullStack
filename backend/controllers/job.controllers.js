@@ -178,3 +178,22 @@ export const getadminjob = async (req, res) => {
     });
   }
 };
+
+export const getallgobcount = async(req,res)=>{
+  try {
+    const alljob = await Job.find();
+    if(!alljob){
+      return res.status(400).json({
+        message:"job not find",
+        success:false,
+      })
+    }
+    return res.status(200).json({
+     success:true,
+     alljob
+    })
+    
+  } catch (error) {
+    console.log(error)
+  }
+}

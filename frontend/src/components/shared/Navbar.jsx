@@ -49,7 +49,9 @@ function Navbar() {
         <div className="flex items-center gap-5 p-6">
           <ul className="flex front-medium items-center gap-5">
             {user && user.role === "requiter" ? (
-              <>
+              <> <li>
+                  <Link to="/Home">Home</Link>
+                </li>
                 <li>
                   <Link to="/admin/compnaies">Company</Link>
                 </li>

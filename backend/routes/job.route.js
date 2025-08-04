@@ -3,6 +3,7 @@ import express from "express";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 import {
   getadminjob,
+  getallgobcount,
   getAlljobs,
   getjobById,
   jobPortal,
@@ -15,5 +16,6 @@ jobroute.route("/getalljob").get(isAuthenticated, getAlljobs);
 jobroute.route("/getadminjob").get(isAuthenticated, getadminjob);
 
 jobroute.route("/get/:id").get(isAuthenticated, getjobById);
+jobroute.route("/gealljobcount").get(getallgobcount);
 
 export default jobroute;
