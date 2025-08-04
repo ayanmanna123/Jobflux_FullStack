@@ -274,3 +274,24 @@ export const verifyEmail = async (req, res) => {
     success: true,
   });
 };
+
+export const getalluser = async(req ,res)=>{
+  try {
+    const alluser = await User.find()
+  if(!alluser){
+    return res.status(400).json({
+      success:false,
+      message:"user not find"
+    })
+  }
+  return res.status(200).json({
+    success:true,
+    alluser,
+    
+  })
+    
+  } catch (error) {
+    console.log(error)
+  }
+  
+}

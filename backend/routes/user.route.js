@@ -5,6 +5,7 @@ import {
   register,
   updateProfile,
   updateProfilePhoto,
+  getalluser,
 } from "../controllers/user.controllers.js";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 import { singleUplode } from "../middlewares/multer.js";
@@ -17,7 +18,7 @@ router.route("/verify-email").post(verifyEmail);
 router.route("/register").post(singleUplode, register);
 router.route("/login").post(login);
 router.route("/logout").get(logout);
-
+router.route("/getalluser").get(getalluser)
 // ✅ Fix applied here:
 router
   .route("/profile/updateProfile")
