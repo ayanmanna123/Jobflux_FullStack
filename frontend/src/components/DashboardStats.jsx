@@ -11,9 +11,9 @@ const DashboardStats = () => {
     const fetchCounts = async () => {
       try {
         const [userRes, companyRes, jobRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/v1/user/getalluser"),
-          axios.get("http://localhost:5000/api/v2/company/getallcomoany"),
-          axios.get("http://localhost:5000/api/v3/job/gealljobcount"),
+          axios.get("https://jobflux-full-stack.vercel.app/api/v1/user/getalluser"),
+          axios.get("https://jobflux-full-stack.vercel.app/api/v2/company/getallcomoany"),
+          axios.get("https://jobflux-full-stack.vercel.app/api/v3/job/gealljobcount"),
         ]);
 
         setUserCount(userRes.data.alluser.length);
