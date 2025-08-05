@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authSlice from "./authSilce";
 import jobSlice from "./jobSlice";
 import applicationSlice from "./applicationSlice";
-import companySlice from "./companySlice"; // Fixed: capital 'S' in companySlice
+import companySlice from "./companySlice";  
 
 import {
   persistStore,

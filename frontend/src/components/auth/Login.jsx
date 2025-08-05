@@ -24,6 +24,7 @@ const Login = () => {
   const { loding ,user } = useSelector((store) => store.auth); // Replace 'auth' with your actual slice name
 
   const dispatch = useDispatch();
+  
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -50,7 +51,7 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(res.data);
+       
       if (res.data.success) {
         dispatch(setuser(res.data.user));
         toast.success(res.data.message);

@@ -54,8 +54,8 @@ const Jobs = ({job}) => {
         </Badge>
       </div>
       <div className=" flex items-center gap-4 mt-4">
-        <Button variant={'outline'} onClick={()=>navigat(`/discription/${job?._id}`)} > Details </Button>
-        <Button className={'bg-[#7209b7]'}>save for later</Button>
+        <Button variant={'outline'} onClick={()=>navigat(`/discription/${job?._id}`)} className={'cursor-pointer'} > Details </Button>
+        <Button className={'bg-[#7209b7] cursor-pointer'}>save for later</Button>
       </div>
     </div>
   );
