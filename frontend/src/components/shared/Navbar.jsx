@@ -1,7 +1,7 @@
 import React from "react";
 import { LogOut } from "lucide-react";
 import { User } from "lucide-react";
- 
+
 import {
   Popover,
   PopoverContent,
@@ -49,7 +49,9 @@ function Navbar() {
         <div className="flex items-center gap-5 p-6">
           <ul className="flex front-medium items-center gap-5">
             {user && user.role === "requiter" ? (
-              <> <li>
+              <>
+                {" "}
+                <li>
                   <Link to="/Home">Home</Link>
                 </li>
                 <li>
