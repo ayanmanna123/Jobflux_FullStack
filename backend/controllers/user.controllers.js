@@ -86,7 +86,6 @@ export const login = async (req, res) => {
         message: "User not found with this email.",
         success: false,
       });
-    
     }
 
     // ✅ Check if user is verified
@@ -275,23 +274,20 @@ export const verifyEmail = async (req, res) => {
   });
 };
 
-export const getalluser = async(req ,res)=>{
+export const getalluser = async (req, res) => {
   try {
-    const alluser = await User.find()
-  if(!alluser){
-    return res.status(400).json({
-      success:false,
-      message:"user not find"
-    })
-  }
-  return res.status(200).json({
-    success:true,
-    alluser,
-    
-  })
-    
+    const alluser = await User.find();
+    if (!alluser) {
+      return res.status(400).json({
+        success: false,
+        message: "user not find",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      alluser,
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-  
-}
+};
