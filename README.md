@@ -69,8 +69,8 @@ The application also includes administrative features for overall management.
 ### ⚙️ Backend Setup
 ```bash
 # Clone the repository
-git clone <your-repository-url>
-cd <your-repository-name>/backend
+git clone https://github.com/ayanmanna123/Jobflux_FullStack.git
+cd  ./backend
 
 # Install dependencies
 npm install   # OR yarn install
@@ -136,6 +136,125 @@ Frontend runs at: [http://localhost:5173](http://localhost:5173).
 6. Open a Pull Request  
 
 ---
+# 📂 Project Structure
+```bash
+├── backend
+│ ├── .env
+│ ├── .gitignore
+│ ├── controllers
+│ │ ├── aplication.controllers.js
+│ │ ├── company.controllers.js
+│ │ ├── job.controllers.js
+│ │ └── user.controllers.js
+│ ├── index.js
+│ ├── middlewares
+│ │ ├── isAuthenticated.js
+│ │ └── multer.js
+│ ├── model
+│ │ ├── Company.model.js
+│ │ ├── application.model.js
+│ │ ├── job.model.js
+│ │ └── user.model.js
+│ ├── package-lock.json
+│ ├── package.json
+│ ├── routes
+│ │ ├── application.route.js
+│ │ ├── company.route.js
+│ │ ├── job.route.js
+│ │ └── user.route.js
+│ ├── utils
+│ │ ├── cloudinary.js
+│ │ ├── datauri.js
+│ │ ├── db.js
+│ │ └── sendEmail.js
+│ └── vercel.json
+└── frontend
+├── .gitignore
+├── README.md
+├── components.json
+├── eslint.config.js
+├── index.html
+├── jsconfig.json
+├── package-lock.json
+├── package.json
+├── public
+│ ├── art-illustration-icon-symbol-log.jpg
+│ └── vite.svg
+├── src
+│ ├── App.css
+│ ├── App.jsx
+│ ├── Redux
+│ │ ├── applicationSlice.js
+│ │ ├── authSilce.js
+│ │ ├── companySlice.js
+│ │ ├── jobSlice.js
+│ │ └── store.js
+│ ├── assets
+│ │ ├── abstract-geometric-logo-or-infinity-line-logo-for-your-company-free-vector.jpg
+│ │ └── react.svg
+│ ├── components
+│ │ ├── Appliedjjob.jsx
+│ │ ├── Brouse.jsx
+│ │ ├── CatagoryCorouscomponent.jsx
+│ │ ├── DashboardStats.jsx
+│ │ ├── FilterCard.jsx
+│ │ ├── HeroSection.jsx
+│ │ ├── Home.jsx
+│ │ ├── Job.jsx
+│ │ ├── Jobdescription.jsx
+│ │ ├── Jobs.jsx
+│ │ ├── LatestJob.jsx
+│ │ ├── LatestJobCard.jsx
+│ │ ├── Profile.jsx
+│ │ ├── ThemeToggle.jsx
+│ │ ├── UPdtaeprofiledilog.jsx
+│ │ ├── VerifyEmail.jsx
+│ │ ├── admin
+│ │ │ ├── AdminJobs.jsx
+│ │ │ ├── AdminJobsTable.jsx
+│ │ │ ├── Applicants.jsx
+│ │ │ ├── ApplicantsTable.jsx
+│ │ │ ├── Companies.jsx
+│ │ │ ├── CompantCreat.jsx
+│ │ │ ├── CompanyTable.jsx
+│ │ │ ├── Companysetup.jsx
+│ │ │ ├── PostJob.jsx
+│ │ │ ├── ProtectedRoute.jsx
+│ │ │ └── ProtectedRouteStudent.jsx
+│ │ ├── auth
+│ │ │ ├── Login.jsx
+│ │ │ └── Signup.jsx
+│ │ ├── shared
+│ │ │ ├── Footer.jsx
+│ │ │ └── Navbar.jsx
+│ │ └── ui
+│ │ ├── avatar.jsx
+│ │ ├── badge.jsx
+│ │ ├── button.jsx
+│ │ ├── carousel.jsx
+│ │ ├── dialog.jsx
+│ │ ├── input.jsx
+│ │ ├── label.jsx
+│ │ ├── popover.jsx
+│ │ ├── radio-group.jsx
+│ │ ├── select.jsx
+│ │ ├── sonner.jsx
+│ │ └── table.jsx
+│ ├── hooks
+│ │ ├── useGetAllAdminJobs.jsx
+│ │ ├── useGetAppliedJobs.jsx
+│ │ ├── usegetAllCompanies.jsx
+│ │ ├── usegetAllJobs.jsx
+│ │ ├── usegetCompanybyid.jsx
+│ │ └── usegetSinglejob.jsx
+│ ├── index.css
+│ ├── lib
+│ │ └── utils.js
+│ └── main.jsx
+├── vercel.json
+└── vite.config.js
+```
 
+---
 ## 📄 License
 This project is licensed under the **MIT License** - see the LICENSE file for details.  
